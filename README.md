@@ -3,6 +3,39 @@ cantina-lock
 
 Cluster-wide exclusive locks for [Cantina](https://github.com/cantina/cantina) using [halocksmith](https://github.com/danmactough/halocksmith)
 
+Usage
+-----
+```js
+var lock = app.lock(options);
+lock([key], function callback (error, release) {
+  if (error) {
+    app.log(error); // hopefully no big deal; just couldn't acquire the lock
+  }
+  else {
+    // woot! Let's dooz it, dogsie!
+    doSomethingWickedCool();
+    // releases the lock
+    release([callback (optional)]);
+  }
+});
+```
+
+- `options {Object}`: (optional) available options are:
+    - `prefix {String}`: the redis key prefix; will be appended to `cantina:lock:` (or whatever is in the conf)
+    - `timeout {Number}`: how long (in seconds) the lock remains valid (default: 120)
+    - `retries {Number}`: the number of times to retry acquiring the lock
+
+- `key {String}`: (optional) the name for this lock (you can have many) (default: "")
+- `release {Function}`: if the lock was acquired, you'll be passed a release function to release (i.e., delete) the lock when you're done; takes an optional callback, which will receive an `Error` or `null`
+
+### Key Name
+
+The full Redis key name is constructed as follows:
+```js
+var lock = app.lock({ prefix: my_plugin }); // key prefix is now "cantina:lock:my_plugin:"
+lock('my_method', cb); // full key is "cantina:lock:my_plugin:my_method"
+```
+
 - - -
 
 ### Developed by [Terra Eclipse](http://www.terraeclipse.com)
