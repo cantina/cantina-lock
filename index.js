@@ -14,7 +14,6 @@ app.lock = function cantinaLock (options) {
   if (!options.nodes) {
     options.redisClient = app.redis;
   }
-  options.redisClient = options.redisClient || app.redis;
   return halocksmith(options);
 };
 
