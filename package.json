@@ -1,0 +1,21 @@
+{
+  "name": "cantina-lock",
+  "version": "0.0.1",
+  "private": true,
+  "description": "cluster-wide exclusive locks for cantina applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": "",
+  "author": "Dan MacTough <dan@terraeclipse.com>",
+  "license": "MIT",
+  "dependencies": {
+    "halocksmith": "0.0.3"
+  },
+  "devDependencies": {
+    "cantina": "git+ssh://git@github.com:cantina/cantina.git#2.x",
+    "cantina-redis": "git+ssh://git@github.com/cantina/cantina-redis.git#2.x",
+    "mocha": "~1.9.0"
+  }
+}
